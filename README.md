@@ -1,6 +1,6 @@
 # AI product experiments
 
-A running lab notebook of hands-on AI experiments built alongside the [6-month CPO positioning plan](../Knowledge/6-month-plan.md).
+A running lab notebook of hands-on AI experiments.
 
 Each experiment documents: what I tested, which model I used, what I learned, and what it means for product decisions.
 
@@ -24,7 +24,7 @@ experiments/
 
 ## Background
 
-13+ years in product management across Meta, Amazon, Home Depot, and Sears. At Meta (IC6), drove AI-powered monetization delivering $3B+ in ads revenue. Now building AI product management skills and positioning for CPO/advisory roles at AI-native companies.
+13+ years in product management across Meta, Amazon, Home Depot, and Sears. At Meta, drove AI-powered monetization experiences delivering $3B+ in ads revenue. Now building AI product management skills and positioning for advisory roles at AI-native companies.
 
 These experiments are the hands-on complement to that journey.
 
