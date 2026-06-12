@@ -2,7 +2,6 @@
 
 **Date:** Week 1, Day 1
 **Resources:** 3Blue1Brown — "But what is a GPT?" (25 min) · Andrej Karpathy — "Intro to LLMs" (1 hr)
-**Quiz score:** 3/5
 
 ---
 
