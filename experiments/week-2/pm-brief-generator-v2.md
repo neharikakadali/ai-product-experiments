@@ -99,6 +99,9 @@ Rules:
 - Flag any section where the input was too vague to be confident.
 - Call out at least one assumption that should be tested before building.
 - Do not write generic filler. If you don't have the data, ask a clarifying question instead.
+- Never use hyphen, "-" in the output. 
+- Be concise and drive clarity. Prioritize brevity in Success metrics, Problem and Why Now sections. The brevity is to land the message while not being extremely verbose. 
+- Use data and cite sources where data is present in the input. Do not invent data to satisfy this rule.
 
 
 Benchmark reference (use when no baseline is provided in input):
@@ -228,13 +231,20 @@ OPEN QUESTIONS
 
 ---
 
-## What to test next
+## Test case backlog — next sessions
 
-Three inputs that would stress-test v2's new sections:
+Run one input per Thursday session before starting the main build work. Mark as used after running. Each input is drawn from a real 6-month project — running the generator on these both sharpens the prompt and produces a usable brief for the actual project.
 
-1. **Enterprise B2B input with regulatory context** — tests whether Risks correctly identifies regulatory stakeholders and whether Why Now captures contract cycle or compliance timing
-2. **Consumer feature with no obvious business metric** — tests whether the two-tier Success Metric holds when the feature-to-revenue link is indirect
-3. **Input with conflicting stakeholder interests** — tests whether Risks surfaces the trade-off clearly or hedges
+| # | Status | Project | Input |
+|---|---|---|---|
+| 1 | Used | IG Fundraising (Meta) | "Drive awareness for IG users and Creators to fundraise during key giving moments. Currently there is a discoverability problem that users can do this in the app." |
+| 2 | Open | AI PM Interview Coach (Week 7) | "PM candidates preparing for AI product interviews at companies like Meta, OpenAI, and Anthropic fail despite strong general PM skills because generic prep resources don't cover AI-specific axes — LLM system design, eval frameworks, responsible AI tradeoffs. There is no tool that evaluates answers against how these companies actually hire." |
+| 3 | Open | AI Career Re-entry Coach for Women (Week 10) | "Women returning to product management after a career break of 1 to 5 years can't articulate their transition story for AI-era roles. Existing career coaching tools are built for continuous employment, not re-entry. The narrative gap — not the skills gap — is why they get screened out before the first interview." |
+| 4 | Open | Vibe Coding Tutorial (Week 11) | "Non-engineer PMs know they should be building AI prototypes but don't start because existing coding tutorials assume an engineering background. There is no PM-native, step-by-step guide from product idea to deployed app — only engineering-first tutorials and vague 'no code' tools that don't produce real products." |
+| 5 | Open | AI Founder Financial Literacy Tool (Week 14) | "First-time founders signing term sheets lack the financial literacy to identify unfavorable clauses — anti-dilution provisions, liquidation preferences, pro-rata rights — and don't know what questions to ask their investors before signing. Most learn what they gave away only after the next funding round." |
+| 6 | Open | AI Monetization Strategy Advisor (Week 22) | "AI startups choose monetization models based on familiarity, not fit. Subscription, usage-based, freemium, and outcome-based models have fundamentally different implications for unit economics, churn, and growth — but most founding teams pick the model they've seen before, not the one that matches their cost structure and user behavior." |
+| 7 | Open | Stress test: regulatory input | "A healthcare AI startup is building a clinical decision support tool for emergency department triage in India. The tool must comply with CDSCO regulations and operate within hospital EMR systems. Response time under 2 seconds is required. The founding team wants to launch in 3 hospitals within 6 months." |
+| 8 | Open | Stress test: conflicting stakeholders | "Amazon wants to add AI-generated product recommendations to the checkout page that personalize in real time based on cart contents and browsing history. The ads team wants the recommendations to be sponsored placements. The trust team is concerned about undisclosed personalization. The seller team wants organic recommendations to remain possible." |
 
 ---
 
