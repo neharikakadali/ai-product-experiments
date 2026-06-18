@@ -179,9 +179,9 @@ OPEN QUESTIONS
 
 ---
 
-## Test case — IG Fundraising Discoverability
+## Test case — Real problem input
 
-Re-running the real Meta/Instagram input that exposed v1's gaps.
+Re-running the real problem input that exposed v1's gaps.
 
 **Input:** "Drive awareness for IG users and Creators to fundraise during key giving moments, that drives social good impact. Currently there is a discoverability problem that users can do this in the app."
 
@@ -237,7 +237,7 @@ Run one input per Thursday session before starting the main build work. Mark as 
 
 | # | Status | Project | Input |
 |---|---|---|---|
-| 1 | Used | IG Fundraising (Meta) | "Drive awareness for IG users and Creators to fundraise during key giving moments. Currently there is a discoverability problem that users can do this in the app." |
+| 1 | Used | IG Fundraising an existing live feature for testing | "Drive awareness for IG users and Creators to fundraise during key giving moments. Assume users dont know they can do this in the app." |
 | 2 | Open | AI PM Interview Coach (Week 7) | "PM candidates preparing for AI product interviews at companies like Meta, OpenAI, and Anthropic fail despite strong general PM skills because generic prep resources don't cover AI-specific axes — LLM system design, eval frameworks, responsible AI tradeoffs. There is no tool that evaluates answers against how these companies actually hire." |
 | 3 | Open | AI Career Re-entry Coach for Women (Week 10) | "Women returning to product management after a career break of 1 to 5 years can't articulate their transition story for AI-era roles. Existing career coaching tools are built for continuous employment, not re-entry. The narrative gap — not the skills gap — is why they get screened out before the first interview." |
 | 4 | Open | Vibe Coding Tutorial (Week 11) | "Non-engineer PMs know they should be building AI prototypes but don't start because existing coding tutorials assume an engineering background. There is no PM-native, step-by-step guide from product idea to deployed app — only engineering-first tutorials and vague 'no code' tools that don't produce real products." |
