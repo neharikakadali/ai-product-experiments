@@ -258,5 +258,7 @@ Without a baseline in the input, the model defaults to "baseline unknown" or "TB
 
 ## Related
 
+- V2: `experiments/week-2/pm-brief-generator-v2.md` (frozen, Post #2)
+- V3: `experiments/week-2/pm-brief-generator-v3.md` (current)
 - Week 2 learnings: `Knowledge/learnings/week-02.md` — Day 3
 - Week 1 model comparison: `experiments/week-1/claude-model-family.md`
