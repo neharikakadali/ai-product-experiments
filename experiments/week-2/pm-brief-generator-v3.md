@@ -488,6 +488,26 @@ OPEN QUESTIONS
 
 ---
 
+## v4 direction — multi-agent architecture (planned, Week 5, Jul 30, 2026)
+
+**Why now:** Week 5 curriculum (DeepLearning.AI AI Agents course) covers agent loops, tool use, memory, planning, and HITL checkpoints — the exact concepts needed to move v3 from a single-prompt generator to a multi-agent pipeline. Skipped this Thursday's single-prompt test case (backlog item #4 below) to design this instead; test case backlog resumes at item #4 next Thursday session.
+
+**Problem with v3 (single prompt):** One model call does infer, classify, cite market data, and self-critique in a single pass. Gaps found across test cases #2 and #3 (invented seniority ranges, thin re entry specific data, confidence scale invention) are exactly the failure mode of asking one pass to both generate and audit itself.
+
+**Proposed v4 pipeline (draft, to detail in `ai-product-experiments/experiments/week-5/pm-brief-generator-v4.md`):**
+1. **Infer + Classify agent** — same as v3 Step 1–2, isolated so downstream agents get a clean problem statement and brief type.
+2. **Market research / citation agent** — tool call against the market context reference (and any input-provided data); returns only verifiable data points with sources attached, flags when no real data exists rather than letting the writer agent improvise.
+3. **Draft agent** — writes the full v3 structure using only the outputs of agents 1 and 2 as grounding context.
+4. **Critique / QA agent** — audits the draft against the v3 Rules block (invented tenure, invented scales, unmet metric denominators, missing Open Questions) and returns pass/fail per rule plus required fixes. This is the HITL checkpoint made explicit: a fixed rubric instead of the writer agent grading itself.
+5. **Revise agent** (only if QA fails) — applies fixes and re-submits to Critique once.
+
+**Open questions for the Week 5 design session:**
+- Does the Critique agent need a separate model/temperature from the Draft agent to avoid self-preference bias (same failure mode as LLM-as-judge, per Week 4 Hamel Husain reading)?
+- Where does a real human review step still belong — before or after agent QA passes?
+- Cost/latency trade-off: is 4 to 5 calls per brief worth the quality gain versus v3's single call, given this is a personal tool, not a scaled product?
+
+---
+
 ## Test case backlog — next sessions
 
 Run one input per Thursday session before starting the main build work. Mark as used after running. Pull the next **Open** row, in table order. Table order tracks each project's actual build week in `Knowledge/6-month-plan.md` — re-sync whenever that plan's project sequence changes (see note below, updated July 30, 2026).
