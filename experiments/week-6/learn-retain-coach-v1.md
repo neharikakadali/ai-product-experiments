@@ -43,7 +43,7 @@ Secondary (if deployed): students and professionals who need to master a specifi
 | Chunk faithfulness | 100% of chunk summaries traceable to source text | Grounding guardrail |
 | Quiz rubric agreement | You agree with pass/fail on ≥8/10 manual spot checks | Judge calibration |
 | Retention resurfacing | Failed concepts reappear on schedule without manual tracking | Core product value |
-| Personal dogfood | Complete one full loop on `week-03.md` before Week 8 | Proves the loop works |
+| Personal dogfood | Complete one full loop on `week-04.md` before Week 8 | Proves the loop works |
 
 ---
 
@@ -124,7 +124,7 @@ Log after every chunker, question-writer, and judge call:
 ```json
 {
   "timestamp": "2026-06-23T10:00:00Z",
-  "source_id": "week-03-md",
+  "source_id": "week-04-md",
   "step": "chunker | question_writer | judge",
   "input_preview": "first 200 chars of input",
   "output": {},
@@ -142,7 +142,7 @@ File: `traces.jsonl` in repo root, gitignored. Review traces when an ingest asse
 
 ```json
 {
-  "source_id": "week-03-md",
+  "source_id": "week-04-md",
   "concepts": [
     {
       "concept_id": "C1",
@@ -380,7 +380,7 @@ Run v1 against these sources in order:
 
 | # | Source | Why |
 |---|---|---|
-| 1 | `Knowledge/learnings/week-03.md` (partial: Day 1 checklist section only) | Short, eval-heavy, you know the ground truth |
+| 1 | `Knowledge/learnings/week-04.md` (partial: Day 1 checklist section only) | Short, eval-heavy, you know the ground truth |
 | 2 | `Knowledge/learnings/week-02.md` (a16z section only) | Tests data-heavy content |
 | 3 | One Substack post draft | Tests long-form prose |
 
@@ -451,7 +451,7 @@ Output JSON only, no markdown fences:
 
 ## Level 1 eval: Answer judge golden dataset (Week 4 Day 3)
 
-**Source:** `Knowledge/learnings/week-03.md` key concepts + Day 1 reading notes
+**Source:** `Knowledge/learnings/week-04.md` key concepts + Day 1 reading notes
 **Feature under test:** Per-answer rubric scoring (Test step, answer judge)
 **Phillip for v1:** Neharika (dogfood on own learning content)
 **Status:** 10 rows seeded · spot-check 4/10 through judge prompt · two-expert test closed 10/10 (Jul 29, 2026, see below)
@@ -666,7 +666,7 @@ Run 3 rows through the answer judge prompt by hand. Target: Phillip agrees with 
 8. After last chunk: show session summary (score by chunk) + link to Retain tab
 9. Write/read `retention.json` on pass/fail
 10. Retain tab: filter due concepts, run recap questions
-11. Dogfood run on week-03.md section
+11. Dogfood run on week-04.md section
 12. Log test results in this file
 
 Estimated time: 2 to 3 hours if prompts are copied from this spec.
