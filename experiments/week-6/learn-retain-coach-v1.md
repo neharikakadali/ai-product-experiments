@@ -192,9 +192,51 @@ Mix for each chunk:
 
 No trick questions. No questions whose answer is not in the source.
 
----
+### Tutor mode: plain language first (learnings)
 
-## System prompt — Step 1: Chunker
+This section governs **how the tutor teaches** in Cursor (manual loop today) and **how Step 2 Learn + quiz debriefs** must behave in the app. Goal: ideas stick without investor or engineering acronym soup.
+
+**Principle:** Teach the **idea in everyday words first**. Introduce shorthand only after the learner could explain it to a founder who does not read a16z.
+
+**On every acronym or jargon term** (examples: M0, M3, NDR, ARR, WAU, PMF, GTM, LTV, CAC, TPR, TNR, RAG, MCP, OTETO):
+
+1. **First use in a session:** spell out in parentheses, then give plain meaning in one short sentence.
+   - Example: "Month 3 (three months after signup): when most curious try-once users have left."
+2. **Prefer plain words in summaries and quiz questions.** Say "months since signup" instead of M0/M3 unless the source itself is teaching that notation.
+3. **Optional mini-glossary** at the end of each chunk summary when the source is acronym-heavy (max 5 terms, one line each).
+4. **One-story arc** before bullet lists: 2 to 4 sentences that connect chunks (e.g. tourist signups → wait until month 3 → acceptance rate → switching cost).
+
+**Learn + Test loop behavior (Cursor tutor and app):**
+
+| Phase | Tutor must |
+|---|---|
+| Learn | Plain-language summary; define terms; tie to user's builds (Learn & Retain Coach, Post #3) when relevant |
+| Quiz | One question at a time; answerable without acronyms; scenario or explain-back preferred over recall of labels |
+| Debrief | Pass/fail + what was missing in plain language; cite source; no jargon pile-on in feedback |
+| Retain | Name the concept in words ("month-three retention rebase"), not only concept_id |
+
+**Quiz question bar:** If the question requires undefined acronyms, rewrite it. Accept learner answers that use plain language if meaning matches the source.
+
+**Debrief bar:** Do not fail solely because the learner avoided acronyms. Fail on wrong idea, missing layer, or contradiction with source.
+
+**Reference decoder (extend as sources add terms):**
+
+| Shorthand | Plain English |
+|---|---|
+| M0, M1, M2, M3… | Months since the user started (month 0 = signup month) |
+| NDR | Whether a cohort's total spending grows over time (net dollar retention) |
+| ARR | Subscription revenue normalized to one year |
+| WAU / DAU / MAU | Active users in a week / day / month |
+| PMF | Product-market fit: people keep using because the job is solved |
+| GTM | Sales and marketing spend to acquire customers |
+| LTV / CAC | Customer lifetime value vs cost to acquire |
+| TPR / TNR | True positive / true negative rate (judge vs human labels) |
+| RAG | Retrieve relevant docs, then generate an answer |
+| MCP | Standard for plugging AI into external tools |
+
+**Alignment:** Matches `AGENTS.md` ("expand acronyms") and productivity partner tutor sessions on `Knowledge/learnings/week-XX.md`.
+
+---
 
 ```
 You are a learning designer. Your job is to split source material into teachable chunks.
@@ -234,10 +276,13 @@ Input: chunk title, source_excerpt, concept labels.
 
 Output format:
 SUMMARY
-[3 to 5 sentences. Plain language. Source-grounded only.]
+[3 to 5 sentences. Plain language. Source-grounded only. No undefined acronyms — spell out on first use or avoid.]
 
 KEY CONCEPTS
 - [concept_id]: [one sentence definition in your own words, faithful to source]
+
+MINI-GLOSSARY (include only if source is acronym-heavy; else omit)
+- [term]: [plain English, one line]
 
 CHECK YOUR UNDERSTANDING
 [One question the learner could ask themselves — not scored, just a prompt]
@@ -245,6 +290,7 @@ CHECK YOUR UNDERSTANDING
 Rules:
 - Do not introduce facts not in source_excerpt.
 - If excerpt is ambiguous, say what is unclear instead of guessing.
+- Teach ideas before notation: if the source uses M3 or NDR, explain in everyday words in SUMMARY before using shorthand.
 ```
 
 ---
@@ -274,6 +320,7 @@ Rules:
 - Each question maps to one concept_id.
 - expected_answer_points must be verifiable from source_excerpt only.
 - No yes/no questions unless the no case is also substantive.
+- Wording: plain English; do not require acronym recall unless the term was defined in the chunk Learn summary.
 ```
 
 ---
@@ -298,14 +345,14 @@ SOURCE CITATION: [quote or close paraphrase from source_excerpt that supports th
 Rubric (all must pass for overall pass):
 1. Correctness: learner answer covers the core idea, not word-for-word match required.
 2. Completeness: all expected_answer_points addressed or fairly implied.
-3. Grounding: no factual claims in learner answer that contradict source_excerpt.
+3. Grounding: no factual claims in learner answer that contradict source_excerpt. A paraphrase that drifts from the source's meaning (not just an outright contradiction) also counts against grounding — flag it here, not only under completeness.
 4. No hallucination by judge: if source_excerpt does not contain enough to score, verdict fail with reason "insufficient source."
 
 Rules:
 - Partial credit does not exist. pass or fail only.
 - Empty or "I don't know" learner answer is always fail with encouraging feedback.
 - Do not reward verbose wrong answers.
-```
+- Accept correct meaning in plain language even if the learner avoids source acronyms.
 
 ---
 
@@ -407,7 +454,7 @@ Output JSON only, no markdown fences:
 **Source:** `Knowledge/learnings/week-03.md` key concepts + Day 1 reading notes
 **Feature under test:** Per-answer rubric scoring (Test step, answer judge)
 **Phillip for v1:** Neharika (dogfood on own learning content)
-**Status:** 10 rows seeded · spot-check 3 through judge prompt before prototype
+**Status:** 10 rows seeded · spot-check 4/10 through judge prompt · two-expert test closed 10/10 (Jul 29, 2026, see below)
 
 ### Scenario coverage matrix
 
@@ -552,6 +599,33 @@ Output JSON only, no markdown fences:
 | `learner_answer` | Shadow mode runs your new model or prompt on real live traffic without showing the output to users. It sits between offline evals and A/B testing — you verify the system still behaves on production traffic before you expose it. Then you do safe rollout and A/B on business metrics. |
 | `human_verdict` | pass |
 | `human_critique` | Pass. Correctly placed shadow between offline evals and user-facing rollout. Named silent live traffic and competence check before users see output. |
+
+### Two-expert test — rubric criteria calibration (Day 3 deliverable 3, closed Jul 29, 2026)
+
+**What this tests:** not whether an LLM judge agrees with a human, but whether the four rubric criteria themselves (correctness, completeness, grounding, no hallucination by judge) are unambiguous enough that two independent reviewers, given the same criteria and the same answer, land on the same pass or fail verdict without needing to ask the rubric author what they meant.
+
+**Method:** Phillip's original human_verdict on each golden row is Expert A. A second, independent reviewer (Expert B) applied the same four criteria fresh to all 10 rows, without looking at Expert A's verdict first, then results were compared.
+
+| test_id | scenario | Expert A verdict | Expert B verdict | Criterion that drove Expert B | Agree? |
+|---|---|---|---|---|---|
+| JUDGE-01 | Partial answer, confident | fail | fail | Completeness — shadow mode and online evals missing | Yes |
+| JUDGE-02 | Empty / "I don't know" | fail | fail | Correctness and completeness — no content | Yes |
+| JUDGE-03 | Pass, own words | pass | pass | All four criteria clear | Yes |
+| JUDGE-04 | Outside knowledge | fail | fail | Grounding — NPS/DAU substitution not in source | Yes |
+| JUDGE-05 | Verbose wrong answer | fail | fail | Grounding and completeness — none of 5 practices present | Yes |
+| JUDGE-06 | Contradicts source | fail | fail | Grounding — direct contradiction of source instruction | Yes |
+| JUDGE-07 | Pass, own words | pass | pass | All four criteria clear | Yes |
+| JUDGE-08 | Pass, own words | pass | pass | All four criteria clear | Yes |
+| JUDGE-09 | Partial, misses one point | fail | fail | Completeness — human eval type omitted entirely | Yes |
+| JUDGE-10 | Pass, own words | pass | pass | All four criteria clear | Yes |
+
+**Result: 10/10 agreement.** The four criteria pass the two-expert test — they produce the same verdict independent of who applies them, across every scenario in the coverage matrix (partial, empty, outside-knowledge, verbose-wrong, contradicts-source, partial-missing-one, and four clean passes).
+
+**One wording refinement worth carrying into the judge prompt (does not change any verdict above):** on JUDGE-01, Expert A's critique flagged the phrase "check the model works" as a mischaracterization of "gate pre-ship quality," while Expert B scored that same drift under completeness rather than grounding. Both experts still reached fail, so this is not a disagreement on the label — but it is a reminder to tell the judge explicitly that a paraphrase that drifts from source meaning counts against grounding, not only against completeness, so the failure reason stays specific when only one criterion would otherwise fire.
+
+**Conclusion:** Rubric is calibrated. No criterion needs rewriting before the Week 5 prototype. Carry the wording refinement above into the judge system prompt as an added grounding clause.
+
+---
 
 ### Spot-check log (fill before prototype)
 
